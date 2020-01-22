@@ -1,0 +1,16 @@
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.shadow-cljs
+.cpcache
+node_modules
+.idea/*
+/public/workspaces/js
+!/.idea/runConfigurations
+*.iml
