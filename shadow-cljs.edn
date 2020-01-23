@@ -6,8 +6,7 @@
                   :asset-path "/js"
                   :compiler-options {:static-fns false
                                      :external-config {:guardrails {:throw? true :emit-spec? true}}}
-                  :devtools {:preloads [fulcro.inspect.preload]
+                  :devtools {:preloads [com.fulcrologic.fulcro.inspect.preload]
                              :http-root "public/workspaces"
                              :http-port 3000
-                             :http-resource-root "."}
-                  :preloads []}}}
+                             :http-resource-root "."}}}}

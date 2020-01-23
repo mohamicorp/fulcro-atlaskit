@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="REPL for fulcro-atlaskit" type="ClojureREPL" factoryName="Remote" activateToolWindowBeforeRun="false" singleton="true">
+    <module name="fulcro-atlaskit" />
+    <setting name="host" value="localhost" />
+    <setting name="port" value="9845" />
+    <setting name="replType" value="NREPL" />
+    <setting name="configType" value="SPECIFY" />
+    <setting name="fixLineNumbers" value="false" />
+    <method v="2" />
+  </configuration>
+</component>
