@@ -14,5 +14,6 @@
             "@atlaskit/form" "7.0.0"
             "@atlaskit/select" "11.0.4"
             "@atlaskit/textfield" "3.1.4"
+            "@atlaskit/tooltip" "15.2.3"
             "react-select" "3.0.8"
             "styled-components" "3.3.3"}}
