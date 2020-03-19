@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {com.fulcrologic/fulcro {:mvn/version "3.1.15"}
+ :deps {com.fulcrologic/fulcro {:mvn/version "3.1.20"}
         com.fulcrologic/fulcro-garden-css {:mvn/version "3.0.7"}
         com.fulcrologic/fulcro-i18n {:mvn/version "0.0.1-SNAPSHOT"}
         cljs-bean {:mvn/version "1.5.0"}}

@@ -1,12 +1,11 @@
 {:deps {:aliases [:dev]}
  :nrepl {:port 9845}
+ :dev-http {3020 ["public/workspaces" "classpath:fulcro-atlaskit"]}
  :builds {:cards {:target nubank.workspaces.shadow-cljs.target
                   :ns-regexp "-(test|cards)$"
                   :output-dir "public/workspaces/js"
                   :asset-path "/js"
                   :compiler-options {:static-fns false
-                                     :external-config {:guardrails {:throw? true :emit-spec? true}}}
-                  :devtools {:preloads [fulcro-atlaskit.development-preload com.fulcrologic.fulcro.inspect.preload]
-                             :http-root "public/workspaces"
-                             :http-port 3020
-                             :http-resource-root "."}}}}
+                                     :external-config {:guardrails {:throw? false}}
+                                     :closure-defines {'goog.DEBUG true}}
+                  :devtools {:preloads [fulcro-atlaskit.preload.debug com.fulcrologic.fulcro.inspect.preload]}}}}

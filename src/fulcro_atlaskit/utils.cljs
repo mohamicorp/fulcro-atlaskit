@@ -1,9 +1,12 @@
 (ns fulcro-atlaskit.utils
-  (:require [goog.object :as gobj]))
+  (:require [goog.object :as gobj]
+            [com.fulcrologic.guardrails.core :refer [>defn =>]]
+            [cljs.spec.alpha :as s]))
 
-(defn js-spread
+(>defn js-spread
   "This works like the javascript spread operator if you see examples like: {... props}"
   [m & args]
+  [object? (s/* object?) => object?]
   (let [new-m (gobj/clone m)]
     (apply gobj/extend new-m args)
     new-m))
