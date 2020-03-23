@@ -13,8 +13,7 @@
     [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
     [com.fulcrologic.fulcro-css.localized-dom :as dom]))
 
-(defmutation move-sale
-  [{:keys [sale-id from-funnel from-funnel-index to-funnel to-funnel-index]}]
+(defmutation move-sale [{:keys [sale-id from-funnel from-funnel-index to-funnel to-funnel-index]}]
   (action [{:keys [state]}]
     (when-not (and (= from-funnel-index to-funnel-index) (= from-funnel to-funnel))
       (swap! state update-in (conj from-funnel :sales-board.funnel-stage/sales) fa-utils/vec-remove from-funnel-index)

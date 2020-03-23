@@ -13,10 +13,12 @@
     [com.fulcrologic.fulcro.ui-state-machines :as uism]
     [com.wsscode.pathom.sugar :as ps]
     [com.wsscode.pathom.connect :as pc]
+    [com.fulcrologic.fulcro.rendering.keyframe-render2 :as keyframe-render2]
     [com.fulcrologic.fulcro.algorithms.tx-processing :as txn]
     [taoensso.timbre :as log]
     [edn-query-language.core :as eql]
-    [cljs.core.async :as async]))
+    [cljs.core.async :as async]
+    [fulcro-atlaskit.button :as button]))
 
 (defn not-aborted? [{:keys [active-requests]} abort-id] (contains? @active-requests abort-id))
 
@@ -118,17 +120,34 @@
     :value id
     :ident (comp/get-ident Person person)})
 
-(defsc PersonSelector [this props {:keys [selected]}]
+(defmutation set-selected [{:keys [id ident]}]
+  (action [{:keys [state]}] (swap! state assoc-in [:person-selector/id id :ui/selected] ident)))
+
+(defmutation set-multi [{:keys [id multi?]}]
+  (action [{:keys [state]}] (swap! state update-in [:person-selector/id id] assoc :ui/multi? multi? :ui/selected nil)))
+
+(defsc PersonSelector
+  [this
+   {:person-selector/keys [id]
+    :ui/keys [selected multi?]
+    :as props}]
   {::select-sugar/option-class Person
    ::select-sugar/server-property :person/autocomplete
+   ::select-sugar/filtering :remote
    :initial-state
      (fn [_]
        {:ui/select (comp/get-initial-state select-sugar/Select {::select-sugar/id "select"})
         :ui/options []
         :ui/selected nil
-        :person-selector/id (gensym)})
+        :person-selector/id :select-person
+        :ui/multi? false})
    :ident :person-selector/id
-   :query [{:ui/select (comp/get-query select-sugar/Select)} {:ui/options (comp/get-query Person)} :person-selector/id]
+   :query
+     [{:ui/select (comp/get-query select-sugar/Select)}
+      {:ui/options (comp/get-query Person)}
+      {:ui/selected (comp/get-query Person)}
+      :ui/multi?
+      :person-selector/id]
    :css-include [select-sugar/Select]
    :componentDidMount
      (fn [this]
@@ -136,19 +155,33 @@
          (select-sugar/start-select!
            this
            {::select-sugar/results-actor [:person-selector/id id]
-            ::select-sugar/id id})))
+            ::select-sugar/id "select"})))
    :componentWillUnmount
      (fn [this] (let [{:person-selector/keys [id]} (comp/props this)] (select-sugar/stop-select! this id)))}
   (log/debug "SELECTED" (:ui/selected props))
-  (select-sugar/ui-select
-    (comp/computed
-      (:ui/select props)
-      {::select-sugar/uism-id :select-person
-       ::select-sugar/selected
-         (some->
-           selected
-           person->option)
-       ::select-sugar/options (mapv person->option (:ui/options props))})))
+  (dom/div
+    (button/ui-button
+      {:onClick
+         (fn []
+           (comp/transact!
+             this
+             [(set-multi
+                {:multi? (not multi?)
+                 :id id})]))}
+      (if multi? "Toggle to single select" "Toggle to multi select"))
+    (select-sugar/ui-select
+      (comp/computed
+        (:ui/select props)
+        {::select-sugar/uism-id "select"
+         ::select-sugar/on-select-mutation (set-selected {:id id})
+         ::select-sugar/react-select-props {:isMulti multi?}
+         ::select-sugar/selected
+           (if multi?
+             (mapv person->option selected)
+             (some->
+               selected
+               person->option))
+         ::select-sugar/options (mapv person->option (:ui/options props))}))))
 
 (def ui-person-selector (comp/factory PersonSelector))
 
@@ -156,12 +189,11 @@
   {:initial-state
      (fn [_]
        {:id "autocomplete"
-        :ui/selected nil
         :ui/person-selector (comp/get-initial-state PersonSelector)})
    :ident :id
    :query [:id {:selected-person (comp/get-query Person)} {:ui/person-selector (comp/get-query PersonSelector)}]
    :css [[:.wrapper {:width "100%"}]]}
-  (dom/div :.wrapper (ui-person-selector (:ui/person-selector props) {:selected (:ui/selected props)})))
+  (dom/div :.wrapper (ui-person-selector (:ui/person-selector props))))
 
 (ws/defcard
   kitchensink-demo
@@ -170,4 +202,6 @@
       :width "100%"}}
   (ct.fulcro/fulcro-card
     {::ct.fulcro/root FulcroDemo
-     ::ct.fulcro/app {:remotes {:remote mock-http}}}))
+     ::ct.fulcro/app
+       {:remotes {:remote mock-http}
+        :optimized-render! keyframe-render2/render!}}))
