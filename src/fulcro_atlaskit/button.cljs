@@ -1,6 +1,7 @@
 (ns fulcro-atlaskit.button
-  (:require ["@atlaskit/button" :as atlaskit-button :refer [ButtonGroup]]
-            [com.fulcrologic.fulcro.algorithms.react-interop :as interop]))
+  (:require
+    ["@atlaskit/button" :as atlaskit-button :refer [ButtonGroup]]
+    [com.fulcrologic.fulcro.algorithms.react-interop :as interop]))
 
 ;; Keep this until we double checked that it is not used
 (def ui-atlaskit-button (interop/react-factory (.-default atlaskit-button)))

@@ -71,7 +71,7 @@
 (def B100 "#4C9AFF")
 (def B75 "#B2D4FF")
 (def B50 "#DEEBFF")
-(def B25 "#EEF4FF") ; This is not Atlaskit. It is 50% lighter than B50.
+(def B25 "#EEF4FF"); This is not Atlaskit. It is 50% lighter than B50.
 
 ;; Purples
 (def P500 "#403294")
