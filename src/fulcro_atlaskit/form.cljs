@@ -1,6 +1,7 @@
 (ns fulcro-atlaskit.form
-  (:require ["@atlaskit/form" :refer [ErrorMessage HelperMessage Field FormFooter FormHeader] :as form]
-            [com.fulcrologic.fulcro.algorithms.react-interop :as interop]))
+  (:require
+    ["@atlaskit/form" :refer [ErrorMessage HelperMessage Field FormFooter FormHeader] :as form]
+    [com.fulcrologic.fulcro.algorithms.react-interop :as interop]))
 
 (def ui-field (interop/react-factory Field))
 (def ui-footer (interop/react-factory FormFooter))

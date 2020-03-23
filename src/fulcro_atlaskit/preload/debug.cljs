@@ -5,7 +5,8 @@
 
 (log/set-level! :debug)
 
-(log/merge-config! {:output-fn prefix-output-fn
-                    :appenders {:console (console-appender)}})
+(log/merge-config!
+  {:output-fn prefix-output-fn
+   :appenders {:console (console-appender)}})
 
 (log/warn "DEBUG MODE ACTIVE, do not include in PROD")
