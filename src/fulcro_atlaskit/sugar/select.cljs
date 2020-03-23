@@ -16,6 +16,7 @@
 (>def ::option-class comp/component-class?)
 (>def ::server-property keyword?)
 (>def ::debounce-timeout number?)
+(>def ::selected #(or (nil? %) (eql/ident? %) (every? eql/ident? %)))
 (>def ::filtering #{:local :remote})
 
 (defn component-option [env prop]
@@ -67,7 +68,7 @@
           server-property
           Option
           {:target (uism/resolve-alias env :results)
-           :params {:filter-value (uism/alias-value env :filter-value)}
+           :params (merge {:filter-value (uism/alias-value env :filter-value)} (uism/alias-value env :load-params))
            :only-refresh [(uism/actor->ident env :actor/results)]
            ::uism/ok-event :event/load-ok
            ::uism/error-event :event/load-failed})))))
@@ -89,7 +90,7 @@
   (->
     env
     (uism/assoc-aliased :loading? false)
-    (uism/assoc-aliased :error? true)
+    (uism/assoc-aliased :failed? true)
     (activate-loading-or-closed)))
 
 (def global-events
@@ -117,7 +118,8 @@
       :filtering-type [:actor/select :ui/filtering]
       :results [:actor/results :ui/options]
       :results-initialized? [:actor/results :ui/initialized?]
-      :open? [:actor/select :ui/open?]}
+      :open? [:actor/select :ui/open?]
+      :load-params [:actor/results :ui/load-params]}
    ::uism/states
      {:initial
         {::uism/events
@@ -177,18 +179,21 @@
 
 (>def ::on-select-mutation (s/and list? #(= (count %) 2)))
 
-(defn add-ident-to-tx-args [tx ident]
-  [::on-select-mutation (? eql/ident?) => ::on-select-mutation]
-  (map #(cond-> % (map? %) (assoc :ident ident)) tx))
+(defn ->ident-or-idents [multi-select? option-or-options]
+  (if multi-select? (mapv #(gobj/get % "ident") option-or-options) (gobj/get option-or-options "ident")))
+
+(defn add-selected-to-tx-args [tx selected]
+  [::on-select-mutation ::selected => ::on-select-mutation]
+  (map #(cond-> % (map? %) (assoc :ident selected)) tx))
 
 (>defn handle-select!
-  [component tx ident]
-  [comp/component-instance? ::on-select-mutation (? eql/ident?) => any?]
+  [component tx ident-or-idents]
+  [comp/component-instance? ::on-select-mutation ::selected => any?]
   (comp/transact!
     component
     [(->
        tx
-       (add-ident-to-tx-args ident))]))
+       (add-selected-to-tx-args ident-or-idents))]))
 
 (defsc Select
   [this
@@ -211,7 +216,8 @@
          m))
    :ident ::id
    :query [::id :ui/open? :ui/filter-value :ui/filtering :ui/failed? :ui/loading?]}
-  (let [remote-filtering? (= filtering :remote)]
+  (let [remote-filtering? (= filtering :remote)
+        multi-select? (:isMulti react-select-props)]
     (select/ui-select
       (fulcro-atlaskit.utils/js-spread
         field-props
@@ -235,10 +241,15 @@
                        (comp/with-parent-context this (dom/span :.red (str "Failed loading results for: " input-value)))
                        (str "No results found for: " input-value))))
                :onChange
-                 (fn [option action]
+                 (fn [option-or-options action]
                    (case (gobj/get action "action")
-                     "clear" (handle-select! this on-select-mutation nil)
-                     "select-option" (handle-select! this on-select-mutation (gobj/get option "ident"))
+                     "clear" (handle-select! this on-select-mutation (if multi-select? [] nil))
+                     "select-option"
+                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
+                     "remove-value"
+                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
+                     "pop-value"
+                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
                      nil))
                :inputValue (or (comp/get-state this :filter-value) "")
                :value selected
@@ -246,7 +257,8 @@
                :options (if-not failed? options [])
                :getOptionLabel (fn [x] (gobj/get x "label"))
                :hideSelectedOptions true
-               :menuIsOpen open?}
+               :menuIsOpen open?
+               :openMenuOnFocus true}
               remote-filtering? (assoc :filterOption nil))
             react-select-props))))))
 
