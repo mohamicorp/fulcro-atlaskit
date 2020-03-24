@@ -274,15 +274,14 @@
   (let [{:keys [attributes children leaf]} (bean args)]
     (dom/span
       attributes
-      (cond
-        (gobj/get leaf "bold") (dom/strong children)
-        (gobj/get leaf "italic") (dom/em children)
-        (gobj/get leaf "underline") (dom/u children)
-        (gobj/get leaf "code") (dom/pre children)
-        (gobj/get leaf "strikethrough") (dom/s children)
-        (gobj/get leaf "subscript") (dom/sub children)
-        (gobj/get leaf "superscript") (dom/sup children)
-        :default children))))
+      (cond-> children
+        (gobj/get leaf "bold") dom/strong
+        (gobj/get leaf "italic") dom/em
+        (gobj/get leaf "underline") dom/u
+        (gobj/get leaf "code") dom/pre
+        (gobj/get leaf "strikethrough") dom/s
+        (gobj/get leaf "subscript") dom/sub
+        (gobj/get leaf "superscript") dom/sup))))
 
 (defn render-element [args]
   (let [{:keys [attributes children element]} (bean args)]
