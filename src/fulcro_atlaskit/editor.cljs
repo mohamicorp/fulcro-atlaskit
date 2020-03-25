@@ -326,7 +326,7 @@
 
 (def ui-more-formatting-option (comp/factory MoreFormattingOption {:keyfn :format}))
 
-(defsc AtlasEditor [this {:keys [editor value on-change]}]
+(defsc AtlasEditor [this {:keys [editor value on-change autofocus?]}]
   {:css-include [Toolbar Separator ShortcutLozenge TooltipShortcutLozenge]
    :initLocalState
      (fn []
@@ -470,9 +470,21 @@
         :.editable-wrapper
         (ui-editable
           {:renderLeaf render-leaf
+           :autoFocus autofocus?
            :onKeyDown #(on-key-down editor %)
            :renderElement render-element})))))
 
 (def ui-editor (comp/factory AtlasEditor))
+
+(defsc Display [this {:keys [editor value]}]
+  (ui-slate
+    {:editor editor
+     :value value}
+    (ui-editable
+      {:renderLeaf render-leaf
+       :readOnly true
+       :renderElement render-element})))
+
+(def ui-display (comp/factory Display))
 
 (defn create-editor [] (withHistory (withReact (createEditor) [])))
