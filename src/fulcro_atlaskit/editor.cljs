@@ -3,7 +3,7 @@
     [com.fulcrologic.fulcro.algorithms.react-interop :as react-interop]
     [com.fulcrologic.fulcro.components :as comp :refer [defsc]]
     [com.fulcrologic.guardrails.core :refer [>def >defn]]
-    [fulcro.i18n :refer [tr]]
+    [com.fulcrologic.fulcro-i18n.i18n :refer [tr]]
     [com.fulcrologic.fulcro-css.localized-dom :as dom]
     [fulcro-atlaskit.button :as button]
     [fulcro-atlaskit.utils :as utils]
