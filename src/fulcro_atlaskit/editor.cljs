@@ -21,6 +21,8 @@
     [garden.color :as garden-color]
     [cljs-bean.core :refer [bean ->js]]
     [goog.object :as gobj]
+    [goog.events :as events]
+    [goog.events.EventType :as event-type]
     ["slate" :refer [Editor createEditor Transforms]]
     ["slate-history" :refer [withHistory]]
     ["is-hotkey" :default isHotkey]
@@ -470,6 +472,30 @@
         (ui-editable
           {:renderLeaf render-leaf
            :autoFocus autofocus?
+           :onFocus
+             (fn [e]
+               (when-not (comp/get-state this :listener-key)
+                 (comp/update-state!
+                   this
+                   assoc
+                   :listener-key
+                   (events/listen
+                     (.-target e)
+                     event-type/KEYPRESS
+                     (fn [goog-event]
+                       (->
+                         goog-event
+                         (.getBrowserEvent)
+                         (.stopPropagation)))
+                     nil
+                     nil)))
+               e)
+           :onBlur
+             (fn [_]
+               (when-let [key (comp/get-state this :listener-key)]
+                 (events/unlistenByKey key)
+                 (comp/update-state! this dissoc :listener-key))
+               true)
            :onKeyDown #(on-key-down editor %)
            :renderElement render-element})))))
 
