@@ -300,6 +300,22 @@
       "list-item" (dom/li attributes children)
       (dom/p attributes children))))
 
+(defn format->label [format]
+  (case format
+    :paragraph (tr "Normal text")
+    :heading-1 (tr "Heading 1")
+    :heading-2 (tr "Heading 2")
+    :heading-3 (tr "Heading 3")
+    :heading-4 (tr "Heading 4")
+    :heading-5 (tr "Heading 5")
+    :heading-6 (tr "Heading 6")))
+
+(defn format->html-label [format]
+  (let [label (format->label format)]
+    (condp format = :paragraph label :heading-1 (dom/h1 label) format (dom/h2 label))))
+
+(def text-formats [:paragraph :heading-1 :heading-2 :heading-3 :heading-4 :heading-5 :heading-6])
+
 (defsc MoreFormattingOption [this {:keys [label format on-select]}]
   {:use-hooks? true}
   (comp/with-parent-context
@@ -327,7 +343,7 @@
 
 (def ui-more-formatting-option (comp/factory MoreFormattingOption {:keyfn :format}))
 
-(defsc AtlasEditor [this {:keys [editor value on-change autofocus?]}]
+(defsc AtlasEditor [this {:keys [editor value on-change autofocus? on-focus on-blur]}]
   {:css-include [Toolbar Separator ShortcutLozenge TooltipShortcutLozenge]
    :initLocalState
      (fn []
@@ -379,7 +395,11 @@
                          :isSelected (comp/get-state this :text-styles-dropdown-open?)
                          :onClick #(comp/update-state! this update :text-styles-dropdown-open? not)
                          :iconAfter (chevron-down/ui-icon {:label (tr "Text styles")})})
-                     (tr "Normal text")))))
+                     (or
+                       (some
+                         (fn [format] (when (format-option-active? editor format) (format->label format)))
+                         text-formats)
+                       (format->label (first text-formats)))))))
            :content
              (fn []
                (comp/with-parent-context
@@ -389,23 +409,12 @@
                    (menu/ui-section
                      {}
                      (mapv
-                       (fn [props]
+                       (fn [text-format]
                          (ui-more-formatting-option
-                           (assoc props :on-select #(comp/update-state! this update :text-styles-dropdown-open? not))))
-                       [{:format :paragraph
-                         :label "Normal text"}
-                        {:format :heading-1
-                         :label (dom/h1 (tr "Heading 1"))}
-                        {:format :heading-2
-                         :label (dom/h2 (tr "Heading 2"))}
-                        {:format :heading-3
-                         :label (dom/h2 (tr "Heading 3"))}
-                        {:format :heading-4
-                         :label (dom/h2 (tr "Heading 4"))}
-                        {:format :heading-5
-                         :label (dom/h2 (tr "Heading 5"))}
-                        {:format :heading-6
-                         :label (dom/h2 (tr "Heading 6"))}])))))})
+                           {:format text-format
+                            :label (format->html-label text-format)
+                            :on-select #(comp/update-state! this update :text-styles-dropdown-open? not)}))
+                       text-formats)))))})
         (ui-separator {})
         (ui-editor-button
           {:label "Bold"
@@ -472,30 +481,8 @@
         (ui-editable
           {:renderLeaf render-leaf
            :autoFocus autofocus?
-           :onFocus
-             (fn [e]
-               (when-not (comp/get-state this :listener-key)
-                 (comp/update-state!
-                   this
-                   assoc
-                   :listener-key
-                   (events/listen
-                     (.-target e)
-                     event-type/KEYPRESS
-                     (fn [goog-event]
-                       (->
-                         goog-event
-                         (.getBrowserEvent)
-                         (.stopPropagation)))
-                     nil
-                     nil)))
-               e)
-           :onBlur
-             (fn [_]
-               (when-let [key (comp/get-state this :listener-key)]
-                 (events/unlistenByKey key)
-                 (comp/update-state! this dissoc :listener-key))
-               true)
+           :onFocus on-focus
+           :onBlur on-blur
            :onKeyDown #(on-key-down editor %)
            :renderElement render-element})))))
 
