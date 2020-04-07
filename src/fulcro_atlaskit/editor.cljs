@@ -451,7 +451,10 @@
                    {}
                    (menu/ui-section
                      {}
-                     (mapv ui-more-formatting-option
+                     (mapv
+                       (fn [props]
+                         (ui-more-formatting-option
+                           (assoc props :on-select #(comp/update-state! this update :more-formatting-open? not))))
                        [{:format :underline
                          :label (tr "Underline")}
                         {:format :strikethrough
