@@ -21,13 +21,8 @@
   [coll pos1 pos2]
   (let [el (nth coll pos1)] (if (= pos1 pos2) coll (into [] (vec-add (vec-remove coll pos1) pos2 el)))))
 
-(defn loading?
-  ([props marker-kw]
-   (loading? (get props [df/marker-table marker-kw])))
-  ([marker]
-   (or
-     (df/ready? marker)
-     (df/loading? marker))))
+(defn loading? ([props marker-kw] (loading? (get props [df/marker-table marker-kw])))
+  ([marker] (or (df/ready? marker) (df/loading? marker))))
 
 (def done? (complement loading?))
 
