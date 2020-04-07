@@ -215,15 +215,19 @@
 (defn toggle-mark [editor format]
   (if (mark-active? editor format) (.removeMark Editor editor format) (.addMark Editor editor format true)))
 
-(defn on-key-down [editor event]
-  (run!
-    (fn [[hotkey [type format]]]
-      (when (is-hotkey hotkey event)
-        (.preventDefault event)
-        (cond
-          (= type ::mark) (toggle-mark editor format)
-          (= type ::block) (toggle-block editor format))))
-    hotkeys))
+(defn save-hotkey? [event] (is-hotkey "mod+enter" event))
+
+(defn on-key-down [editor event on-save]
+  (if (and on-save (save-hotkey? event))
+    (do (.preventDefault event) (.blur (.-target event)) (on-save))
+    (run!
+      (fn [[hotkey [type format]]]
+        (when (is-hotkey hotkey event)
+          (.preventDefault event)
+          (cond
+            (= type ::mark) (toggle-mark editor format)
+            (= type ::block) (toggle-block editor format))))
+      hotkeys)))
 
 (defn format-option-active? [editor format-option]
   (let [{::keys [format]
@@ -343,7 +347,7 @@
 
 (def ui-more-formatting-option (comp/factory MoreFormattingOption {:keyfn :format}))
 
-(defsc AtlasEditor [this {:keys [editor value on-change autofocus? on-focus on-blur]}]
+(defsc AtlasEditor [this {:keys [editor value on-change autofocus? on-focus on-blur on-save]}]
   {:css-include [Toolbar Separator ShortcutLozenge TooltipShortcutLozenge]
    :initLocalState
      (fn []
@@ -486,7 +490,7 @@
            :autoFocus autofocus?
            :onFocus on-focus
            :onBlur on-blur
-           :onKeyDown #(on-key-down editor %)
+           :onKeyDown #(on-key-down editor % on-save)
            :renderElement render-element})))))
 
 (def ui-editor (comp/factory AtlasEditor))
