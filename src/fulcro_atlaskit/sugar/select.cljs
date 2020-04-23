@@ -11,7 +11,9 @@
     [com.fulcrologic.fulcro.ui-state-machines :as uism :refer [defstatemachine]]
     [com.fulcrologic.fulcro.application :as app]
     [com.fulcrologic.fulcro-css.localized-dom :as dom]
-    [cljs.spec.alpha :as s]))
+    [com.fulcrologic.fulcro-i18n.i18n :refer [tr trf]]
+    [cljs.spec.alpha :as s]
+    [clojure.string :as str]))
 
 (>def ::option-class comp/component-class?)
 (>def ::server-property keyword?)
@@ -198,7 +200,7 @@
 (defsc Select
   [this
    {:ui/keys [failed? open? filtering loading?]}
-   {::keys [react-select-props options selected uism-id field-props on-select-mutation]
+   {::keys [react-select-props options selected uism-id field-props on-select-mutation creatable?]
     :or
       {options []
        field-props #js {}
@@ -218,7 +220,7 @@
    :query [::id :ui/open? :ui/filter-value :ui/filtering :ui/failed? :ui/loading?]}
   (let [remote-filtering? (= filtering :remote)
         multi-select? (:isMulti react-select-props)]
-    (select/ui-select
+    ((if creatable? select/ui-creatable-select select/ui-select)
       (fulcro-atlaskit.utils/js-spread
         field-props
         (->js
@@ -236,10 +238,14 @@
                :onMenuClose #(when open? (uism/trigger! this uism-id :event/close))
                :noOptionsMessage
                  (fn [opts]
-                   (let [input-value (gobj/get opts "inputValue")]
-                     (if failed?
-                       (comp/with-parent-context this (dom/span :.red (str "Failed loading results for: " input-value)))
-                       (str "No results found for: " input-value))))
+                   (comp/with-parent-context
+                     this
+                     (let [input-value (gobj/get opts "inputValue")]
+                       (if failed?
+                         (dom/span :.red (trf "Failed loading results for: {input-value}" :input-value input-value))
+                         (if (= input-value "")
+                           (tr "No results found")
+                           (trf "No results found for: {input-value}" :input-value input-value))))))
                :onChange
                  (fn [option-or-options action]
                    (case (gobj/get action "action")
