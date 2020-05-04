@@ -150,7 +150,7 @@
            (merge
              global-events
              {:event/update-filter-value
-                {::uism/target:thu-state :debouncing
+                {::uism/target-state :debouncing
                  ::uism/handler handle-event-typing}})}
       :debouncing
         {::uism/events
@@ -270,10 +270,10 @@
 
 (def ui-select (comp/factory Select))
 
-(defn start-select! [component {::keys [results-actor id]}]
+(defn start-select! [component {::keys [results-actor id custom-state-machine]}]
   (uism/begin!
     component
-    select-machine
+    (or custom-state-machine select-machine)
     id
     {:actor/select (uism/with-actor-class [::id id] Select)
      :actor/wrapper component

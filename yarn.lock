@@ -59,6 +59,16 @@
     react-beautiful-dnd "^12.1.1"
     tslib "^1.9.3"
 
+"@atlaskit/empty-state@6.0.8":
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/@atlaskit/empty-state/-/empty-state-6.0.8.tgz#d72f53ed4279bbf6f9443aa783ee4396f5ca17ca"
+  integrity sha512-gQyYKn+K2R3kHN6Wvr4Pq4ff7iy0FwW2QWV4ZL8FOvuV76ZgoJkc8kxjKC2YGc40GXz2VBsUTy3ylnYnrGuzgQ==
+  dependencies:
+    "@atlaskit/button" "^13.3.7"
+    "@atlaskit/spinner" "^12.1.4"
+    "@atlaskit/theme" "^9.5.1"
+    tslib "^1.9.3"
+
 "@atlaskit/form@7.0.0":
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@atlaskit/form/-/form-7.0.0.tgz#272bd2de986fc6f2c7df3b450ac0f2683cbf8c59"
