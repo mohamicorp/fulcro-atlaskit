@@ -371,7 +371,8 @@
         [:&:before {:content "\"\""}]
         [:&:after {:content "\"\""}]]]
       [:.editable-wrapper {:padding "20px"}]
-      [:.icon {:margin "0 -2px"}]]}
+      [:.icon {:margin "0 -2px"}]
+      [:$atlaskit-portal {:z-index (str "9999 !important")}]]}
   (dom/div
     :.wrapper
     (ui-slate
