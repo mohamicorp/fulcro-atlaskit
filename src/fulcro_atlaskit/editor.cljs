@@ -12,6 +12,7 @@
     [fulcro-atlaskit.icon.editor.bold :as bold]
     [fulcro-atlaskit.icon.editor.italic :as italic]
     [fulcro-atlaskit.icon.editor.more :as more]
+    [fulcro-atlaskit.css-constants :as css-constants]
     [fulcro-atlaskit.icon.editor.quote :as quote]
     [fulcro-atlaskit.icon.editor.number-list :as number-list]
     [fulcro-atlaskit.icon.editor.bullet-list :as bullet-list]
@@ -372,7 +373,7 @@
         [:&:after {:content "\"\""}]]]
       [:.editable-wrapper {:padding "20px"}]
       [:.icon {:margin "0 -2px"}]
-      [:$atlaskit-portal {:z-index (str "9999 !important")}]]}
+      [:$atlaskit-portal {:z-index (css-constants/important css-constants/z-index-highest)}]]}
   (dom/div
     :.wrapper
     (ui-slate
