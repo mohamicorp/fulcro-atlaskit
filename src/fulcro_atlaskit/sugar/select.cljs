@@ -16,7 +16,7 @@
     [clojure.string :as str]))
 
 (>def ::option-class comp/component-class?)
-(>def ::server-property keyword?)
+(>def ::server-property (s/nilable keyword?))
 (>def ::debounce-timeout number?)
 (>def ::selected #(or (nil? %) (eql/ident? %) (every? eql/ident? %)))
 (>def ::filtering #{:local :remote})
@@ -179,28 +179,24 @@
     {:new-filter-value new-filter-value
      ::uism/transact-options {:only-refresh [(comp/get-ident component)]}}))
 
-(>def ::on-select-mutation (s/and list? #(= (count %) 2)))
+(>def ::on-select-tx (s/coll-of list? :kind vector?))
 
 (defn ->ident-or-idents [multi-select? option-or-options]
   (if multi-select? (mapv #(gobj/get % "ident") option-or-options) (gobj/get option-or-options "ident")))
 
 (defn add-selected-to-tx-args [tx selected]
-  [::on-select-mutation ::selected => ::on-select-mutation]
-  (map #(cond-> % (map? %) (assoc :ident selected)) tx))
+  [::on-select-tx ::selected => ::on-select-tx]
+  (mapv (fn [[k v]] (if v (list k (assoc v :ident selected)) (list k))) tx))
 
 (>defn handle-select!
   [component tx ident-or-idents]
-  [comp/component-instance? ::on-select-mutation ::selected => any?]
-  (comp/transact!
-    component
-    [(->
-       tx
-       (add-selected-to-tx-args ident-or-idents))]))
+  [comp/component-instance? ::on-select-tx ::selected => any?]
+  (comp/transact! component (add-selected-to-tx-args tx ident-or-idents)))
 
 (defsc Select
   [this
    {:ui/keys [failed? open? filtering loading?]}
-   {::keys [react-select-props options selected uism-id field-props on-select-mutation creatable?]
+   {::keys [react-select-props options selected uism-id field-props on-select-mutation on-select-tx creatable?]
     :or
       {options []
        field-props #js {}
@@ -219,7 +215,8 @@
    :ident ::id
    :query [::id :ui/open? :ui/filter-value :ui/filtering :ui/failed? :ui/loading?]}
   (let [remote-filtering? (= filtering :remote)
-        multi-select? (:isMulti react-select-props)]
+        multi-select? (:isMulti react-select-props)
+        on-select-tx (or on-select-tx [on-select-mutation])]
     ((if creatable? select/ui-creatable-select select/ui-select)
       (fulcro-atlaskit.utils/js-spread
         field-props
@@ -249,13 +246,12 @@
                :onChange
                  (fn [option-or-options action]
                    (case (gobj/get action "action")
-                     "clear" (handle-select! this on-select-mutation (if multi-select? [] nil))
+                     "clear" (handle-select! this on-select-tx (if multi-select? [] nil))
                      "select-option"
-                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
+                       (handle-select! this on-select-tx (->ident-or-idents multi-select? option-or-options))
                      "remove-value"
-                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
-                     "pop-value"
-                       (handle-select! this on-select-mutation (->ident-or-idents multi-select? option-or-options))
+                       (handle-select! this on-select-tx (->ident-or-idents multi-select? option-or-options))
+                     "pop-value" (handle-select! this on-select-tx (->ident-or-idents multi-select? option-or-options))
                      nil))
                :inputValue (or (comp/get-state this :filter-value) "")
                :value selected
