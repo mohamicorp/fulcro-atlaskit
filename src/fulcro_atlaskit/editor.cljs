@@ -30,8 +30,7 @@
     ["slate-react" :refer [Slate Editable withReact useSlate]]
     [clojure.string :as str]
     [taoensso.timbre :as log]
-    [goog.userAgent :as guser-agent]
-    [fulcro.client.primitives :as prim]))
+    [goog.userAgent :as guser-agent]))
 
 (def mac? guser-agent/MAC)
 
