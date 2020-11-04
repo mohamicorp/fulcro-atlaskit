@@ -217,10 +217,7 @@
 (defmethod toggle-block :default
   [editor format]
   (let [active? (block-active? editor format)]
-    (.setNodes
-      Transforms
-      editor
-      #js {:type (if active? (get-in format-options [:paragraph ::format]) format)})))
+    (.setNodes Transforms editor #js {:type (if active? (get-in format-options [:paragraph ::format]) format)})))
 
 (defmethod toggle-block :list
   [editor format]
@@ -320,6 +317,7 @@
           (button/ui-atlaskit-button
             {:appearance "subtle"
              :isSelected (format-option-active? editor format)
+             ; setTimeout is necessary to prevent popups, that open by clicking this button, from closing right away.
              :onClick (fn [event] (.preventDefault event) (js/setTimeout (fn [] (toggle-format-option editor format))))
              :iconBefore icon}))))))
 
@@ -416,7 +414,8 @@
 
 (defn render-element [args this editor read-only?]
   (let [{:keys [attributes children element]} (bean args)
-        style (block-style element)]
+        style (block-style element)
+        {:keys [width url height]} (bean element)]
     (gobj/set attributes "style" (->js style))
     (case (gobj/get element "type")
       "blockquote" (dom/blockquote attributes children)
@@ -430,20 +429,20 @@
         (dom/div
           attributes
           (dom/img
-            {:src (.-url element)
-             :width (.-width element)
-             :height (.-height element)})
+            {:src url
+             :width width
+             :height height})
           children)
       "link"
         (if read-only?
-          (dom/a {:href (.-url element)} children)
+          (dom/a {:href url} children)
           (comp/with-parent-context
             this
             (ui-url-editor
               {::editor editor
                ::element element
                ::attributes attributes
-               ::url (.-url element)}
+               ::url url}
               children)))
       "bullet-list" (dom/ul attributes children)
       "numbered-list" (dom/ol attributes children)
