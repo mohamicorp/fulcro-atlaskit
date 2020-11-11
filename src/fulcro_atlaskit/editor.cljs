@@ -435,7 +435,7 @@
           children)
       "link"
         (if read-only?
-          (dom/a {:href url} children)
+          (dom/a {:href (cond->> url (not (str/starts-with? url "http")) (str "//"))} children)
           (comp/with-parent-context
             this
             (ui-url-editor
