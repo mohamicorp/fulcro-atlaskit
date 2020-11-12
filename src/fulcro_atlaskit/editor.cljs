@@ -303,7 +303,7 @@
       ::block (toggle-block editor format)
       ::mark (toggle-mark editor format))))
 
-(defsc EditorButton [this {:keys [icon format label]}]
+(defsc EditorButton [this {:keys [icon format label on-click]}]
   {:use-hooks? true}
   (comp/with-parent-context
     this
@@ -318,7 +318,10 @@
             {:appearance "subtle"
              :isSelected (format-option-active? editor format)
              ; setTimeout is necessary to prevent popups, that open by clicking this button, from closing right away.
-             :onClick (fn [event] (.preventDefault event) (js/setTimeout (fn [] (toggle-format-option editor format))))
+             :onClick
+               (fn [event]
+                 (.preventDefault event)
+                 (js/setTimeout (fn [] (toggle-format-option editor format) (when on-click (on-click)))))
              :iconBefore icon}))))))
 
 (def ui-editor-button (comp/factory EditorButton))
@@ -517,14 +520,17 @@
              {:style {:display "flex"}}
              (ui-editor-button
                {:label (tr "Align left")
+                :on-click #(comp/update-state! this assoc :alignment-open? false)
                 :icon (align-left/ui-icon {:label (tr "Align left")})
                 :format :align-left})
              (ui-editor-button
                {:label (tr "Align center")
+                :on-click #(comp/update-state! this assoc :alignment-open? false)
                 :icon (align-center/ui-icon {:label (tr "Align center")})
                 :format :align-center})
              (ui-editor-button
                {:label (tr "Align right")
+                :on-click #(comp/update-state! this assoc :alignment-open? false)
                 :icon (align-right/ui-icon {:label (tr "Align right")})
                 :format :align-right}))))}))
 
