@@ -14,6 +14,7 @@
     "@atlaskit/textarea" "2.2.7"
     "@atlaskit/textfield" "3.1.4"
     "@atlaskit/tooltip" "15.2.3"
+    "@atlaskit/section-message" "5.0.0"
     "highlight.js" "9.12.0"
     "is-hotkey" "0.1.6"
     "prop-types" "15.7.2"
