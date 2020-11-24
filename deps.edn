@@ -3,7 +3,7 @@
         com.fulcrologic/fulcro-garden-css {:mvn/version "3.0.7"}
         avisi-apps/fulcro-i18n {:git/url "git@github.com:avisi-apps/fulcro-i18n.git"
                                 :sha "919d9bb49f6392a053e7dbbe5f48e8c7ce4ffe9a"}
-        cljs-bean {:mvn/version "1.5.0"}}
+        cljs-bean/cljs-bean {:mvn/version "1.5.0"}}
  :aliases {:dev {:extra-paths ["test"]
                  :extra-deps {thheller/shadow-cljs {:mvn/version "2.8.81"}
                               nubank/workspaces {:mvn/version "1.0.14"}
