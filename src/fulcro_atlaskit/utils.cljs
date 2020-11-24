@@ -27,3 +27,7 @@
 (def done? (complement loading?))
 
 (def failed? df/failed?)
+
+(defn prevent-default [e] (.preventDefault e))
+
+(defn stop-propagation [e] (.stopPropagation e))
