@@ -196,7 +196,7 @@
 (defsc Select
   [this
    {:ui/keys [failed? open? filtering loading?]}
-   {::keys [react-select-props options selected uism-id field-props on-select-mutation on-select-tx creatable?]
+   {::keys [react-select-props options selected uism-id field-props on-select-mutation on-select-tx creatable? spacing]
     :or
       {options []
        field-props #js {}
@@ -229,7 +229,7 @@
                    (comp/update-state! this assoc :filter-value value)
                    (update-filter! this uism-id value))
                :maxMenuHeight 200
-               :spacing "compact"
+               :spacing (or spacing "compact")
                :menuPlacement "auto"
                :onMenuOpen (fn [] (when-not open? (uism/trigger! this uism-id :event/open)))
                :onMenuClose #(when open? (uism/trigger! this uism-id :event/close))
