@@ -263,7 +263,7 @@
           #js {:split true})))))
 
 (defn toggle-block-style [editor format]
-  (cond (str/starts-with? format "align") (.setNodes Transforms editor #js {"align" format})))
+  (cond (and format (str/starts-with? format "align")) (.setNodes Transforms editor #js {"align" format})))
 
 (defn mark-active? [editor format] (let [marks (.marks Editor editor)] (when marks (true? (gobj/get marks format)))))
 
@@ -438,7 +438,7 @@
           children)
       "link"
         (if read-only?
-          (dom/a {:href (cond->> url (not (str/starts-with? url "http")) (str "//"))} children)
+          (dom/a {:href (when url (cond->> url (not (str/starts-with? url "http")) (str "//")))} children)
           (comp/with-parent-context
             this
             (ui-url-editor
