@@ -15,6 +15,7 @@
     "@atlaskit/select" "13.1.1"
     "@atlaskit/textarea" "4.0.1"
     "@atlaskit/textfield" "4.0.10"
+    "@atlaskit/toggle" "12.0.3"
     "@atlaskit/tooltip" "17.1.2"
     "highlight.js" "9.12.0"
     "is-hotkey" "0.1.6"
