@@ -1,5 +1,6 @@
 {:npm-deps
    {"@atlaskit/button" "15.1.4"
+    "@atlaskit/code" "13.1.1"
     "@atlaskit/css-reset" "6.0.5"
     "@atlaskit/dynamic-table" "14.1.5"
     "@atlaskit/empty-state" "7.1.5"
