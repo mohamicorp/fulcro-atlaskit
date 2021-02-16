@@ -61,6 +61,20 @@
     "@atlaskit/theme" "^11.0.0"
     "@babel/runtime" "^7.0.0"
 
+"@atlaskit/flag@14.2.1":
+  version "14.2.1"
+  resolved "https://registry.yarnpkg.com/@atlaskit/flag/-/flag-14.2.1.tgz#6a6a75086602dc872515fc7b2d7ac8dbc596b8bd"
+  integrity sha512-TR1iWy2swypm4JQ/l8L4M8w3CidjcI/5XmLIpa0wfnN3EVH0JEHW5ZjiTqVYu1OIwyJdg4zNnTSe6av9azaL9w==
+  dependencies:
+    "@atlaskit/analytics-next" "^8.0.0"
+    "@atlaskit/button" "^15.1.0"
+    "@atlaskit/icon" "^21.0.0"
+    "@atlaskit/motion" "^0.4.0"
+    "@atlaskit/portal" "^4.0.0"
+    "@atlaskit/theme" "^11.0.0"
+    "@babel/runtime" "^7.0.0"
+    "@emotion/core" "^10.0.9"
+
 "@atlaskit/form@8.1.7", "@atlaskit/form@^8.1.0":
   version "8.1.7"
   resolved "https://registry.yarnpkg.com/@atlaskit/form/-/form-8.1.7.tgz#9f70df942cdff0a2072b911ca0f6786ab76509ab"
