@@ -14,6 +14,7 @@
     "@atlaskit/radio" "5.0.3"
     "@atlaskit/section-message" "5.0.9"
     "@atlaskit/select" "13.1.1"
+    "@atlaskit/side-navigation" "0.8.0"
     "@atlaskit/tabs" "12.1.2"
     "@atlaskit/textarea" "4.0.1"
     "@atlaskit/textfield" "4.0.10"

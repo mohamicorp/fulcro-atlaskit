@@ -20,6 +20,6 @@
            {:outline "none"
             :cursor "pointer"}
          :onClick #(comp/update-state! this update :open? not)}
-        trigger))))
+        (if (fn? trigger) (trigger open?) trigger)))))
 
 (def ui-inline-dialog (comp/factory InlineDialog))

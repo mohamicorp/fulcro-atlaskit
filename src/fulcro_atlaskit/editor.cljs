@@ -821,4 +821,4 @@
 
 (defn create-editor [] (with-html (withHistory (withReact (createEditor) []))))
 
-(defn reset-selection! [editor] (.select Transforms editor #js [0]))
+(defn reset-selection! [editor] (.deselect Transforms editor))

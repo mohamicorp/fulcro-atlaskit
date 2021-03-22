@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "@atlaskit/button": "15.1.4",
+    "@atlaskit/atlassian-navigation": "0.12.4",
+    "@atlaskit/side-navigation": "0.8.0",
     "@atlaskit/css-reset": "6.0.5",
     "@atlaskit/dynamic-table": "14.1.5",
     "@atlaskit/empty-state": "7.1.5",
@@ -20,6 +22,7 @@
     "@atlaskit/tooltip": "17.1.2",
     "@atlaskit/modal-dialog": "11.2.8",
     "@atlaskit/checkbox": "12.0.1",
+    "@atlaskit/toggle": "12.0.3",
     "highlight.js": "9.12.0",
     "is-hotkey": "0.1.6",
     "prop-types": "15.7.2",

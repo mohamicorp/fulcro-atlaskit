@@ -8,4 +8,5 @@
 (def ui-atlaskit-button-group (interop/react-factory ButtonGroup))
 
 (def ui-button (interop/react-factory (.-default atlaskit-button)))
+(def ui-loading-button (interop/react-factory (.-LoadingButton atlaskit-button)))
 (def ui-button-group (interop/react-factory ButtonGroup))
