@@ -10,6 +10,7 @@
     "@atlaskit/form": "8.1.7",
     "@atlaskit/inline-edit": "11.0.7",
     "@atlaskit/inline-message": "11.0.8",
+    "@atlaskit/datetime-picker": "10.2.0",
     "@atlaskit/lozenge": "10.0.7",
     "@atlaskit/menu": "0.7.0",
     "@atlaskit/page-header": "10.0.7",
