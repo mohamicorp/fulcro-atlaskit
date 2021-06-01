@@ -29,6 +29,10 @@
 (def z-index-high 5000)
 (def z-index-highest 9999)
 
+; Elevation
+(def E100 "rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px")
+(def E200 "rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.31) 0px 0px 1px")
+
 (def truncate-rules
   {:overflow "hidden"
    :text-overflow "ellipsis"
