@@ -1,7 +1,9 @@
 (ns fulcro-atlaskit.modal-dialog
   (:require
-    ["@atlaskit/modal-dialog" :default Modal :refer [ModalTransition]]
+    ["@atlaskit/modal-dialog" :default Modal :refer [ModalTransition ModalFooter ModalHeader]]
     [com.fulcrologic.fulcro.algorithms.react-interop :as react-interop]))
 
 (def ui-modal (react-interop/react-factory Modal))
+(def ui-modal-footer (react-interop/react-factory ModalFooter))
+(def ui-modal-header (react-interop/react-factory ModalHeader))
 (def ui-modal-transition (react-interop/react-factory ModalTransition))
