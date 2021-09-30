@@ -577,8 +577,7 @@
       [:.editable-wrapper
        {:padding "20px"
         :overflow "hidden"}]
-      [:.icon {:margin "0 -2px"}]
-      [:$atlaskit-portal {:z-index (css-constants/important css-constants/z-index-highest)}]]}
+      [:.icon {:margin "0 -2px"}]]}
   (dom/div
     :.wrapper
     (ui-slate
