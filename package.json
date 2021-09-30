@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@atlaskit/button": "15.1.4",
+    "@atlaskit/onboarding": "10.2.4",
     "@atlaskit/atlassian-navigation": "0.12.4",
     "@atlaskit/side-navigation": "0.8.0",
     "@atlaskit/css-reset": "6.0.5",
