@@ -34,4 +34,4 @@
     "slate" "0.66.0"
     "slate-history" "0.65.3"
     "slate-react" "0.57.1"
-    "styled-components" "4.0.0"}}
+    "styled-components" "5.3.5"}}
