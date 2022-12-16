@@ -15,7 +15,7 @@
     "@atlaskit/section-message" "5.0.9"
     "@atlaskit/select" "14.1.0"
     "@atlaskit/side-navigation" "0.8.0"
-    "@atlaskit/tabs" "12.1.2"
+    "@atlaskit/tabs" "13.2.6"
     "@atlaskit/textarea" "4.0.1"
     "@atlaskit/textfield" "4.0.10"
     "@atlaskit/toggle" "12.0.3"
