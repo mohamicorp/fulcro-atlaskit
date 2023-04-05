@@ -7,5 +7,6 @@
                   :asset-path "/js"
                   :compiler-options {:static-fns false
                                      :external-config {:guardrails {:throw? false}}
-                                     :closure-defines {'goog.DEBUG true}}
+                                     :closure-defines {'goog.DEBUG true}
+                                     :output-feature-set :es-next}
                   :devtools {:preloads [fulcro-atlaskit.preload.debug com.fulcrologic.fulcro.inspect.preload]}}}}
