@@ -1,4 +1,4 @@
-(ns fulcro-atlaskit.fuegokit.components
+(ns fulcro-atlaskit.fuegokit
   (:require
    ["@fuegokit/react" :refer [Box  GlobalHeader]]
    [com.fulcrologic.fulcro.algorithms.react-interop :as react-interop]))
