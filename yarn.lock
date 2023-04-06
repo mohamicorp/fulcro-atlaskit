@@ -1209,7 +1209,7 @@
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/fuegoicons-react/-/fuegoicons-react-1.2.0.tgz#5566913af268dd9d90756afc9dde87fc43b2f137"
   integrity sha1-VWaROvJo3Z2QdWr8nd6H/EOy8Tc=
 
-"@fuegokit/fuegoicons-react@^1.4.0":
+"@fuegokit/fuegoicons-react@1.4.0":
   version "1.4.0"
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/fuegoicons-react/-/fuegoicons-react-1.4.0.tgz#d774f9006d844278abf1d008de56030884bd1aa1"
   integrity sha512-a52HLH81gKEgA8VlKCYQEJ3KqzROddZ0kMOkY2StIoVlasfLm9viyRv3cJbC5wEh1BYY3SFUYDz6KkRaw73aDg==
@@ -1219,7 +1219,7 @@
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/prettier-config/-/prettier-config-1.1.7.tgz#bb37c61ae6dba268d0011af51cef73934b3e8ad6"
   integrity sha1-uzfGGubbomjQARr1HO9zk0s+itY=
 
-"@fuegokit/react@^2.14.0":
+"@fuegokit/react@2.14.0":
   version "2.14.0"
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/react/-/react-2.14.0.tgz#29754c5bde249d89222300151ad9f817d4d25efb"
   integrity sha512-IOhAtrMXRRGyaKHiYCtzSyw6x715Eo2czk/rzZlvWGcfH1MNfMixGHoJvKGZp89pgQrzta3t12fQIsfK40DcVA==
@@ -1245,14 +1245,7 @@
     react-stately "^3.20.0"
     styled-system "5.1.5"
 
-"@fuegokit/tailwind@^0.6.0":
-  version "0.6.0"
-  resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/tailwind/-/tailwind-0.6.0.tgz#3d1de73da9d5defb442110dae94e60ef87738146"
-  integrity sha1-PR3nPanV3vtEIRDa6U5g74dzgUY=
-  dependencies:
-    "@fuegokit/tokens" "*"
-
-"@fuegokit/tokens@*", "@fuegokit/tokens@^0.9.0":
+"@fuegokit/tokens@0.9.0":
   version "0.9.0"
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/tokens/-/tokens-0.9.0.tgz#d0dade2727373eb330343fe86a757c20dcbb5b2e"
   integrity sha512-PJZNAo/jDsBGwMc8qGWN/a5dDzFaJihLZ0zCAFv01OZrfK2bXQ0P/5hSgWL7OXZLABdCw1TxPddeiwwwn73PTw==
