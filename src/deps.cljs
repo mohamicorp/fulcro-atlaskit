@@ -20,6 +20,7 @@
     "@atlaskit/textfield" "4.0.10"
     "@atlaskit/toggle" "12.0.3"
     "@atlaskit/tooltip" "17.1.2"
+    "@babel/runtime" "7.21.0"
     "@fuegokit/fuegoicons-react" "1.4.0"
     "@fuegokit/react" "2.14.0"
     "@fuegokit/tokens" "0.9.0"
