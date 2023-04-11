@@ -887,6 +887,13 @@
     core-js "^2.6.5"
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@7.21.0", "@babel/runtime@^7.2.0":
+  version "7.21.0"
+  resolved "https://nexus.appfire.com/repository/appfire-npm/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
+  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
+  dependencies:
+    regenerator-runtime "^0.13.11"
+
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.10.0", "@babel/runtime@^7.8.7":
   version "7.12.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
@@ -907,13 +914,6 @@
   integrity sha512-9E9FJowqAsytyOY6LG+1KuueckRL+aQW+mKvXRXnuFGyRAyepJPmEo9vgMfXUA6O9u3IeEdv9MAkppFcaQwogQ==
   dependencies:
     regenerator-runtime "^0.13.4"
-
-"@babel/runtime@^7.2.0", "@babel/runtime@^7.21.0":
-  version "7.21.0"
-  resolved "https://nexus.appfire.com/repository/appfire-npm/@babel/runtime/-/runtime-7.21.0.tgz#5b55c9d394e5fcf304909a8b00c07dc217b56673"
-  integrity sha512-xwII0//EObnq89Ji5AKYQaRYiW/nZ3llSv29d49IuxPhKbtJoLP+9QUUZ4nVragQVtaVGeZrpB+ZtG/Pdy/POw==
-  dependencies:
-    regenerator-runtime "^0.13.11"
 
 "@babel/runtime@^7.5.5":
   version "7.8.3"
@@ -1219,10 +1219,10 @@
   resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/prettier-config/-/prettier-config-1.1.7.tgz#bb37c61ae6dba268d0011af51cef73934b3e8ad6"
   integrity sha1-uzfGGubbomjQARr1HO9zk0s+itY=
 
-"@fuegokit/react@2.14.0":
-  version "2.14.0"
-  resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/react/-/react-2.14.0.tgz#29754c5bde249d89222300151ad9f817d4d25efb"
-  integrity sha512-IOhAtrMXRRGyaKHiYCtzSyw6x715Eo2czk/rzZlvWGcfH1MNfMixGHoJvKGZp89pgQrzta3t12fQIsfK40DcVA==
+"@fuegokit/react@0.0.0-20230410143353":
+  version "0.0.0-20230410143353"
+  resolved "https://nexus.appfire.com/repository/appfire-npm/@fuegokit/react/-/react-0.0.0-20230410143353.tgz#435505b97dbb763ec348a324c37247aa8eadfbbb"
+  integrity sha512-VuKsL05clNzbmCVYRTRcB8RmFhade2brvAy2ZqBv2pXuzhh0kbSr+/wFkORhlD2/zuy2VLVJzmxmQCy6FY/Oqg==
   dependencies:
     "@fuegokit/fuegoicons-react" "1.2.0"
     "@fuegokit/prettier-config" "^1.1.6"
