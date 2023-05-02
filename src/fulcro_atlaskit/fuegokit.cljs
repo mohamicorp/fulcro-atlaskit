@@ -1,6 +1,6 @@
 (ns fulcro-atlaskit.fuegokit
   (:require
-   ["@fuegokit/react" :as fuegokit]
+   ["@fuegokit/react$default" :as fuegokit]
    [com.fulcrologic.fulcro.algorithms.react-interop :as react-interop]))
 
 (def ui-fuegokit (react-interop/react-factory fuegokit))
