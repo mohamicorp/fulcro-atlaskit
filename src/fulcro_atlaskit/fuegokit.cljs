@@ -1,4 +1,4 @@
-(ns app.fuegokit
+(ns fulcro-atlaskit.fuegokit
   (:require
    ["@fuegokit/react" :as fuegokit]
    ["react" :refer [Fragment]]
