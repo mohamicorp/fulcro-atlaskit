@@ -14,3 +14,5 @@ node_modules
 /public/workspaces/js
 !/.idea/runConfigurations
 *.iml
+.clj-kondo/
+.lsp/
