@@ -27,7 +27,7 @@
     "@atlaskit/tooltip": "17.1.2",
     "@babel/runtime": "7.21.0",
     "@fuegokit/fuegoicons-react": "1.4.0",
-    "@fuegokit/react": "0.0.0-20230515185603",
+    "@fuegokit/react": "^2.18.2",
     "@fuegokit/tokens": "0.9.0",
     "highlight.js": "10.4.1",
     "is-hotkey": "0.1.6",

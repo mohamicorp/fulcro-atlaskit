@@ -4,7 +4,6 @@
    ["react" :refer [Fragment]]
    [com.fulcrologic.fulcro.algorithms.react-interop :as react-interop]))
 
-
 (def ui-box (react-interop/react-factory fuegokit/Box))
 (def ui-global-header (react-interop/react-factory fuegokit/GlobalHeader))
 (def ui-global-header-nav (react-interop/react-factory (.-Nav fuegokit/GlobalHeader)))
