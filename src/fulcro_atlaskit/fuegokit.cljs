@@ -29,3 +29,5 @@
 (def ui-arcade-wrapper (react-interop/react-factory fuegokit/ArcadeWrapper))
 (def ui-use-case-grid (react-interop/react-factory fuegokit/UseCaseCardGrid))
 (def ui-use-case-card (react-interop/react-factory fuegokit/UseCaseCard))
+
+(def ui-checkbox (react-interop/react-factory fuegokit/AtlasCheckbox))
