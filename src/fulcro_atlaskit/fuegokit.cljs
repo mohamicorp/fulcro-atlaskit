@@ -31,3 +31,4 @@
 (def ui-use-case-card (react-interop/react-factory fuegokit/UseCaseCard))
 
 (def ui-checkbox (react-interop/react-factory fuegokit/AtlasCheckbox))
+(def ui-button (react-interop/react-factory fuegokit/AtlasButton))
