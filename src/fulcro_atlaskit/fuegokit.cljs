@@ -32,3 +32,4 @@
 
 (def ui-checkbox (react-interop/react-factory fuegokit/AtlasCheckbox))
 (def ui-button (react-interop/react-factory fuegokit/AtlasButton))
+(def ui-button-group (react-interop/react-factory fuegokit/AtlasButtonGroup))
